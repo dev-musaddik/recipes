@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Head from "next/head"; // Import Head component for better SEO control
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import GoogleAd from "@/components/GoogleAd";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,6 +40,7 @@ export default function RootLayout({
 
       <body className={inter.className}>
         <GoogleAnalytics/>
+        <GoogleAd/>
         <Navbar />
         {children}
         <Footer />
