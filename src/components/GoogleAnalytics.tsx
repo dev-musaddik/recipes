@@ -1,4 +1,4 @@
-"use client"; // Add this to enable client-side only behavior
+"use client";  // Add this to enable client-side only behavior
 
 import { useEffect } from 'react';
 import Script from 'next/script';
@@ -10,8 +10,9 @@ export default function GoogleAnalytics() {
     function gtag(...args: any[]) {
       window.dataLayer.push(args);
     }
-    gtag('js', new Date());
-    gtag('config', 'G-BQS8Z6725Y');
+
+    gtag("js", new Date());
+    gtag("config", "G-BQS8Z6725Y");
   }, []);
 
   return (
