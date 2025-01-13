@@ -36,9 +36,9 @@ export default async function Home() {
           content="/path/to/your/image.jpg" // Replace with actual image path
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.yourwebsite.com" /> {/* Replace with your website */}
+        <meta property="og:url" content="https://therecipescroll.vercel.app/" /> {/* Replace with your website */}
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://www.yourwebsite.com" /> {/* Replace with your website */}
+        <link rel="canonical" href="https://therecipescroll.vercel.app/" /> {/* Replace with your website */}
       </Head>
 
       <main>

@@ -34,8 +34,8 @@ export default function RootLayout({
         <meta property="og:description" content="This is the Bloggers app boundary, providing useful tips and resources for successful blogging." />
         <meta property="og:image" content="/path/to/your/image.jpg" /> {/* Replace with actual image path */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.yourwebsite.com" /> {/* Replace with your website URL */}
-        <link rel="canonical" href="https://www.yourwebsite.com" /> {/* Replace with your website URL */}
+        <meta property="og:url" content="https://therecipescroll.vercel.app/" /> {/* Replace with your website URL */}
+        <link rel="canonical" href="https://therecipescroll.vercel.app/" /> {/* Replace with your website URL */}
       </Head>
 
       <body className={inter.className}>
