@@ -1,12 +1,16 @@
-"use client";
+"use client"; // Ensure client-side behavior only
 
-export default function GoogleCMP() {
+interface GoogleCMPProps {
+  nonce: string;
+}
+
+export default function GoogleCMP({ nonce }: GoogleCMPProps) {
   return (
     <>
       <script
         async
         src="https://fundingchoicesmessages.google.com/i/pub-5663485350418829?erf=3"
-        nonce="your-nonce-code"
+        nonce={nonce} // Attach nonce to the script
       ></script>
       <script
         dangerouslySetInnerHTML={{
@@ -18,7 +22,7 @@ export default function GoogleCMP() {
               var fcScript = document.createElement('script');
               fcScript.src = "https://fundingchoicesmessages.google.com/i/pub-5663485350418829?erf=3";
               fcScript.async = true;
-              fcScript.setAttribute('nonce', 'your-nonce-code');
+              fcScript.setAttribute('nonce', '${nonce}'); // Use nonce
               document.head.appendChild(fcScript);
             })();
           `,

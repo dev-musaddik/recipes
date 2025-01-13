@@ -51,6 +51,8 @@ const SlugPage = async ({ params: { slug } }: Props) => {
             height={500}
             alt="main image"
             className="object-cover w-full"
+            layout="intrinsic"
+            priority
           />
         </div>
         <div className="w-1/3 hidden md:inline-flex flex-col items-center gap-5 px-4">

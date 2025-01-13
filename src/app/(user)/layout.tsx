@@ -4,16 +4,19 @@ import "../style/globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Head from "next/head";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { generateNonce } from "@/lib/generateNonce";
 import GoogleAd from "@/components/GoogleAd";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import GoogleCMP from "@/components/GoogleCMP";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const nonce=generateNonce();
 export const metadata: Metadata = {
   title: "The Recipe Scroll | Explore Delicious Recipes",
   description: "Discover a wide range of recipes for all occasions on The Recipe Scroll. Your go-to guide for delicious meals!",
 };
+
 
 export default function RootLayout({
   children,
@@ -49,19 +52,12 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" /> {/* Add your favicon in the public folder */}
       </Head>
 
+
       <body className={inter.className}>
-        {/* Google Analytics */}
-        <GoogleAnalytics />
-
-        {/* Google AdSense */}
-        <GoogleAd />
-
-        {/* Consent Management Platform */}
-        <GoogleCMP />
-
-        {/* Navbar */}
-        <Navbar />
-
+      <GoogleAd />
+       <GoogleAnalytics nonce={nonce} />
+       <GoogleCMP nonce={nonce} />
+        <Navbar/>
         {/* Main Content */}
         {children}
 
