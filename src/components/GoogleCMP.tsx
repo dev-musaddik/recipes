@@ -1,10 +1,15 @@
-"use client"; // Ensure client-side behavior only
+"use client";
+import { generateNonce } from "@/lib/generateNonce";
 
-interface GoogleCMPProps {
-  nonce: string;
-}
+ // Ensure client-side behavior only
 
-export default function GoogleCMP({ nonce }: GoogleCMPProps) {
+// interface GoogleCMPProps {
+//   nonce: string;
+// }
+
+const nonce: string =generateNonce();
+
+export default function GoogleCMP() {
   return (
     <>
       <script

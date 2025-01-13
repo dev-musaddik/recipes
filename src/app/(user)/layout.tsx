@@ -54,9 +54,9 @@ export default function RootLayout({
 
 
       <body className={inter.className}>
-      <GoogleAd />
-       <GoogleAnalytics nonce={nonce} />
-       <GoogleCMP nonce={nonce} />
+      <GoogleAd/>
+      <GoogleAnalytics/>
+      <GoogleCMP/>
         <Navbar/>
         {/* Main Content */}
         {children}

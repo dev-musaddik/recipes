@@ -1,30 +1,31 @@
-"use client"; // Ensure client-side behavior only
+"use client"; // Client-side only component
 
-interface GoogleAnalyticsProps {
-  nonce: string;
+import { useEffect } from "react";
+import Script from "next/script";
+
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
 }
 
-export default function GoogleAnalytics({ nonce }: GoogleAnalyticsProps) {
+export default function GoogleAnalytics() {
+  useEffect(() => {
+    // Google Analytics setup
+    window.dataLayer = window.dataLayer || [];
+    function gtag(...args: any[]) {
+      window.dataLayer.push(args);
+    }
+    window.gtag = gtag;
+
+    gtag("js", new Date());
+    gtag("config", "G-BQS8Z6725Y"); // Replace with your Google Analytics ID
+  }, []);
+
   return (
-    <>
-      <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-BQS8Z6725Y"
-        nonce={nonce} // Attach nonce to the script
-      />
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(...args) {
-              window.dataLayer.push(args);
-            }
-            gtag("js", new Date());
-            gtag("config", "G-BQS8Z6725Y");
-          `,
-        }}
-        nonce={nonce} // Use nonce
-      />
-    </>
+    <Script
+      strategy="afterInteractive"
+      src="https://www.googletagmanager.com/gtag/js?id=G-BQS8Z6725Y" // Replace with your Google Analytics ID
+    />
   );
 }
