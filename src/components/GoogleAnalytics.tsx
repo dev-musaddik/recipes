@@ -1,6 +1,4 @@
-// src/components/GoogleAnalytics.tsx
-
-"use client";  // Add this to enable client-side only behavior
+"use client"; // Add this to enable client-side only behavior
 
 import { useEffect } from 'react';
 import Script from 'next/script';
@@ -9,8 +7,8 @@ export default function GoogleAnalytics() {
   useEffect(() => {
     // Google Analytics setup
     window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      window.dataLayer.push(arguments);
+    function gtag(...args: any[]) {
+      window.dataLayer.push(args);
     }
     gtag('js', new Date());
     gtag('config', 'G-BQS8Z6725Y');
