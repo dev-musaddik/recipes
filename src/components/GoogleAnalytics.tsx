@@ -1,47 +1,50 @@
-"use client"; // Client-side only component
+"use client"; 
 
-import { useEffect } from "react";
-import Script from "next/script";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-// Extend the global `window` object to include the `gtag` method
-declare global {
-  interface Window {
-    gtag: (...args: any[]) => void;
-    dataLayer: any[];
-  }
-}
+const GoogleAnalytics = () => {
+  const [mounted, setMounted] = useState(false);
 
-export default function GoogleAnalytics() {
   useEffect(() => {
-    // Initialize the `dataLayer` if not already defined
-    window.dataLayer = window.dataLayer || [];
-
-    // Define the `gtag` function and attach it to the global `window` object
-    function gtag(...args: any[]) {
-      console.log("gtag called with:", args); // Debug: Log every call to gtag
-      window.dataLayer.push(args);
-    }
-    window.gtag = gtag;
-
-    // Debug: Confirm the dataLayer initialization
-    console.log("dataLayer initialized:", window.dataLayer);
-
-    // Configure Google Analytics with the Measurement ID
-    gtag("js", new Date());
-    console.log("Google Analytics initialized with ID: G-BQS8Z6725Y"); // Debug: Log initialization
-
-    gtag("config", "G-BQS8Z6725Y"); // Replace with your Google Analytics Measurement ID
+    setMounted(true);
   }, []);
 
-  return (
-    <>
-      {/* Google Analytics Script */}
-      <Script
-        strategy="afterInteractive" // Load the script after the page is interactive
-        src="https://www.googletagmanager.com/gtag/js?id=G-BQS8Z6725Y" // Replace with your Google Analytics Measurement ID
-        onLoad={() => console.log("Google Analytics script loaded successfully.")} // Debug: Log when script loads
-        onError={() => console.error("Failed to load Google Analytics script.")} // Debug: Log script loading errors
-      />
-    </>
-  );
-}
+  if (!mounted) {
+    return null; // Prevent rendering until the component is mounted
+  }
+
+  const router = useRouter();
+
+  useEffect(() => {
+    // Initialize Google Analytics when component is mounted
+    window.dataLayer = window.dataLayer || [];
+    function gtag(...args: any[]) {
+      window.dataLayer.push(args);
+    }
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-L8P2EX90VP";
+    script.onload = () => {
+      gtag("js", new Date());
+      gtag("config", "G-L8P2EX90VP");
+    };
+    document.head.appendChild(script);
+
+    const handleRouteChange = (url: string) => {
+      gtag("config", "G-L8P2EX90VP", { page_path: url });
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+      document.head.removeChild(script);
+    };
+  }, [router]);
+
+  return null; // This component doesn't render anything visible
+};
+
+export default GoogleAnalytics;

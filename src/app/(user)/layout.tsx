@@ -6,17 +6,17 @@ import Footer from "@/components/Footer";
 import Head from "next/head";
 import { generateNonce } from "@/lib/generateNonce";
 import GoogleAd from "@/components/GoogleAd";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
 import GoogleCMP from "@/components/GoogleCMP";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
+const nonce = generateNonce();
 
-const nonce=generateNonce();
 export const metadata: Metadata = {
   title: "The Recipe Scroll | Explore Delicious Recipes",
-  description: "Discover a wide range of recipes for all occasions on The Recipe Scroll. Your go-to guide for delicious meals!",
+  description:
+    "Discover a wide range of recipes for all occasions on The Recipe Scroll. Your go-to guide for delicious meals!",
 };
-
 
 export default function RootLayout({
   children,
@@ -36,12 +36,15 @@ export default function RootLayout({
         />
 
         {/* Open Graph (OG) Tags */}
-        <meta property="og:title" content="The Recipe Scroll | Explore Delicious Recipes" />
+        <meta
+          property="og:title"
+          content="The Recipe Scroll | Explore Delicious Recipes"
+        />
         <meta
           property="og:description"
           content="Discover a wide range of recipes for all occasions on The Recipe Scroll. Your go-to guide for delicious meals!"
         />
-        <meta property="og:image" content="/images/og-image.jpg" /> {/* Replace with your actual image */}
+        <meta property="og:image" content="/images/og-image.jpg" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://therecipescroll.vercel.app/" />
 
@@ -49,21 +52,38 @@ export default function RootLayout({
         <link rel="canonical" href="https://therecipescroll.vercel.app/" />
 
         {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" /> {/* Add your favicon in the public folder */}
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
-
       <body className={inter.className}>
-      <GoogleAd/>
-      <GoogleAnalytics/>
-      <GoogleCMP/>
-        <Navbar/>
+        <GoogleAd />
+        {/* <GoogleAnalytics/> */}
+        <GoogleCMP />
+        <Navbar />
         {/* Main Content */}
         {children}
-
         {/* Footer */}
         <Footer />
       </body>
+
+      {/* Add Google Analytics script */}
+      <Script
+        strategy="afterInteractive"
+        src="https://www.googletagmanager.com/gtag/js?id=G-L8P2EX90VP"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){
+            dataLayer.push(arguments);
+            console.log('Google Analytics event:', arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-L8P2EX90VP', {
+            page_path: window.location.pathname,
+          });
+        `}
+      </Script>
     </html>
   );
 }
