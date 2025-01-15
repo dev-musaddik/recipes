@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "../style/globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Head from "next/head";
 import { generateNonce } from "@/lib/generateNonce";
 import GoogleAd from "@/components/GoogleAd";
 import GoogleCMP from "@/components/GoogleCMP";
@@ -25,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Head>
+      <head>
         {/* Basic Meta Tags */}
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -53,37 +52,34 @@ export default function RootLayout({
 
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </head>
 
       <body className={inter.className}>
         <GoogleAd />
-        {/* <GoogleAnalytics/> */}
         <GoogleCMP />
         <Navbar />
-        {/* Main Content */}
         {children}
-        {/* Footer */}
         <Footer />
-      </body>
 
-      {/* Add Google Analytics script */}
-      <Script
-        strategy="afterInteractive"
-        src="https://www.googletagmanager.com/gtag/js?id=G-L8P2EX90VP"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){
-            dataLayer.push(arguments);
-            console.log('Google Analytics event:', arguments);
-          }
-          gtag('js', new Date());
-          gtag('config', 'G-L8P2EX90VP', {
-            page_path: window.location.pathname,
-          });
-        `}
-      </Script>
+        {/* Add Google Analytics script */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-L8P2EX90VP"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){
+              dataLayer.push(arguments);
+              console.log('Google Analytics event:', arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'G-L8P2EX90VP', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
+      </body>
     </html>
   );
 }
